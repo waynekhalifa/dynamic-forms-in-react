@@ -7,6 +7,8 @@ function useForm(initialValues, validate, onSubmit) {
 
   React.useEffect(() => {
     if (isSubmitting) {
+      // convert the validation object to array
+      // so we can have an easy ways to check if there is errors
       const noErrors = Object.keys(errors).length === 0;
 
       if (noErrors) {

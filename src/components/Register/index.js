@@ -1,22 +1,31 @@
 import React from "react";
-import useForm from "../../hooks/useForm";
 import { validateRegister } from "../../shared/validation";
-
-const INITIAL_VALUES = {
-  name: "",
-  email: "",
-  password: "",
-};
+import RegisterForm from '../UI/CustomForm'
 
 function Register() {
-  const {
-    values,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    errors,
-    isSubmitting,
-  } = useForm(INITIAL_VALUES, validateRegister, handleRegister);
+  const fields = [
+    {
+      label: "Full Name",
+      name: "name",
+      type: "text",
+      placeholder: "Full Name",
+      value: "",
+    },
+    {
+      label: "Email",
+      name: "email",
+      type: "email",
+      placeholder: "Your Email",
+      value: "",
+    },
+    {
+      label: "Password",
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      value: "",
+    },
+  ];
 
   function handleRegister(values) {
     alert(JSON.stringify(values));
@@ -25,53 +34,11 @@ function Register() {
   return (
     <>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <div>
-            <label htmlFor="name">Name</label>
-          </div>
-          <div>
-            <input
-              name="name"
-              placeholder="Enter Your Full Name"
-              value={values.name}
-              onChange={handleChange}
-            />
-            {errors.name && <p>{errors.name}</p>}
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="email">Email</label>
-          </div>
-          <div>
-            <input
-              name="email"
-              placeholder="Your Email"
-              value={values.email}
-              onChange={handleChange}
-            />
-            {errors.email && <p>{errors.email}</p>}
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="password">Password</label>
-          </div>
-          <div>
-            <input
-              name="password"
-              placeholder="Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            {errors.password && <p>{errors.password}</p>}
-          </div>
-        </div>
-        <button disabled={isSubmitting} type="submit">
-          Register
-        </button>
-      </form>
+      <RegisterForm
+        fields={fields}
+        validation={validateRegister}
+        submitHandler={handleRegister}
+      />
     </>
   );
 }
